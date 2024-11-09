@@ -18,12 +18,12 @@
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
     
-        <meta name="description" content="问题的产生 如果你和我一样会写一些拥有大量数学公式的md文档，当你安装好hexo-filter-mathjax后试图在网页上渲染时，大概率会出现渲染失败的问题。 由于我平常撰写markdown文档的编辑器是obsidian，查阅文档可知，obsidian同样是使用mathjax进行渲染的，所以首先可以排除我的公式语法不支持的问题。 并且其他的一些公式渲染正常，我的mathjax的配置大概率也是没有">
+        <meta name="description" content="问题的产生如果你和我一样会写一些拥有大量数学公式的md文档，当你安装好hexo-filter-mathjax后试图在网页上渲染时，大概率会出现渲染失败的问题。 由于我平常撰写markdown文档的编辑器是obsidian，查阅文档可知，obsidian同样是使用mathjax进行渲染的，所以首先可以排除我的公式语法不支持的问题。 并且其他的一些公式渲染正常，我的mathjax的配置大概率也是没有问">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Hexo中数学公式渲染失败的解决">
 <meta property="og:url" content="http://example.com/2024/11/09/%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/Hexo%E6%95%B0%E5%AD%A6%E5%85%AC%E5%BC%8F%E6%B8%B2%E6%9F%93%E5%A4%B1%E8%B4%A5%E7%9A%84%E8%A7%A3%E5%86%B3/index.html">
 <meta property="og:site_name" content="Stardustor&#39;s Blog">
-<meta property="og:description" content="问题的产生 如果你和我一样会写一些拥有大量数学公式的md文档，当你安装好hexo-filter-mathjax后试图在网页上渲染时，大概率会出现渲染失败的问题。 由于我平常撰写markdown文档的编辑器是obsidian，查阅文档可知，obsidian同样是使用mathjax进行渲染的，所以首先可以排除我的公式语法不支持的问题。 并且其他的一些公式渲染正常，我的mathjax的配置大概率也是没有">
+<meta property="og:description" content="问题的产生如果你和我一样会写一些拥有大量数学公式的md文档，当你安装好hexo-filter-mathjax后试图在网页上渲染时，大概率会出现渲染失败的问题。 由于我平常撰写markdown文档的编辑器是obsidian，查阅文档可知，obsidian同样是使用mathjax进行渲染的，所以首先可以排除我的公式语法不支持的问题。 并且其他的一些公式渲染正常，我的mathjax的配置大概率也是没有问">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/img/%E6%95%B0%E5%AD%A6%E6%B8%B2%E6%9F%93%E6%8A%A5%E9%94%99.png">
 <meta property="article:published_time" content="2024-11-09T07:22:00.000Z">
@@ -680,29 +680,28 @@ mjx-container[display="true"] + br {
 
 
         <div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
-            <h3 id="问题的产生">问题的产生</h3>
-<p>如果你和我一样会写一些拥有大量数学公式的md文档，当你安装好hexo-filter-mathjax后试图在网页上渲染时，大概率会出现渲染失败的问题。</p>
+            <h3 id="问题的产生"><a href="#问题的产生" class="headerlink" title="问题的产生"></a>问题的产生</h3><p>如果你和我一样会写一些拥有大量数学公式的md文档，当你安装好hexo-filter-mathjax后试图在网页上渲染时，大概率会出现渲染失败的问题。</p>
 <p>由于我平常撰写markdown文档的编辑器是obsidian，查阅文档可知，obsidian同样是使用mathjax进行渲染的，所以首先可以排除我的公式语法不支持的问题。</p>
 <p>并且其他的一些公式渲染正常，我的mathjax的配置大概率也是没有问题的。</p>
 <p>经过检查发现，这种问题的出现大概率是因为markdown中下划线表示斜体，而在数学公式中表示下标，二者冲突了。</p>
-<p>在下图中也可以看到，未正确渲染的部分并不是黄底标注的（若是因为数学公式格式错误造成的无法渲染，会以黄底标注的形式呈现），并且仔细观察可以发现
-<em>{\nu}(\psi,\nu)</em>
-都是斜体标注的，所以可以认为在这里本使用了本不应当使用的markdown渲染器进行了渲染，这就是造成问题的原因。</p>
-<p><img lazyload="" src="/images/loading.svg" data-src="/img/数学渲染报错.png"></p>
-<h3 id="问题的解决">问题的解决</h3>
-<p>根据网上对于此问题的解决方案，我选择了卸载原本markdown渲染使用的marked，而改用pandoc。为此，首先需要先在电脑上下载<a class="link" target="_blank" rel="noopener" href="https://pandoc.org/installing.html">pandoc <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>，否则在之后可能出现报错。</p>
-<p>然后在hexo的根目录下运行命令 <div class="highlight-container" data-rel="Cmd"><figure class="iseeu highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm uninstall hexo-renderer-marked --save</span><br><span class="line">npm install hexo-renderer-pandoc --save</span><br></pre></td></tr></table></figure></div></p>
-<p>这时候再运行 <div class="highlight-container" data-rel="Cmd"><figure class="iseeu highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo g</span><br><span class="line">hexo s</span><br></pre></td></tr></table></figure></div></p>
+<p>在下图中也可以看到，未正确渲染的部分并不是黄底标注的（若是因为数学公式格式错误造成的无法渲染，会以黄底标注的形式呈现），并且仔细观察可以发现 <em>{\nu}(\psi,\nu)</em> 都是斜体标注的，所以可以认为在这里本使用了本不应当使用的markdown渲染器进行了渲染，这就是造成问题的原因。</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="/img/%E6%95%B0%E5%AD%A6%E6%B8%B2%E6%9F%93%E6%8A%A5%E9%94%99.png"></p>
+<h3 id="问题的解决"><a href="#问题的解决" class="headerlink" title="问题的解决"></a>问题的解决</h3><p>根据网上对于此问题的解决方案，我选择了卸载原本markdown渲染使用的marked，而改用pandoc。为此，首先需要先在电脑上下载<a class="link" target="_blank" rel="noopener" href="https://pandoc.org/installing.html">pandoc <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>，否则在之后可能出现报错。</p>
+<p>然后在hexo的根目录下运行命令</p>
+<div class="highlight-container" data-rel="Cmd"><figure class="iseeu highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm uninstall hexo-renderer-marked --save</span><br><span class="line">npm install hexo-renderer-pandoc --save</span><br></pre></td></tr></table></figure></div>
+
+<p>这时候再运行</p>
+<div class="highlight-container" data-rel="Cmd"><figure class="iseeu highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo g</span><br><span class="line">hexo s</span><br></pre></td></tr></table></figure></div>
+
 <p>可以发现，公式已经可以正常渲染了。</p>
-<h3 id="遇到的其他问题">遇到的其他问题</h3>
-<p>在进行如上的过程中，我也遇见了非常多的其他问题，在这里也将解决方法罗列在下边。</p>
-<ol type="1">
-<li><p>在<code>hexo clean</code>处就报错：<strong>[ERROR][hexo-renderer-pandoc]
-pandoc exited with code null.</strong></p>
-<p>这是由于在执行install
-hexo-renderer-pandoc的时候电脑上并没有安装pandoc，只需要先卸载hexo-renderer-pandoc插件，在下载好pandoc后再进行安装就不会报错了。</p></li>
+<h3 id="遇到的其他问题"><a href="#遇到的其他问题" class="headerlink" title="遇到的其他问题"></a>遇到的其他问题</h3><p>在进行如上的过程中，我也遇见了非常多的其他问题，在这里也将解决方法罗列在下边。</p>
+<ol>
+<li><p>在<code>hexo clean</code>处就报错：<strong>[ERROR][hexo-renderer-pandoc] pandoc exited with code null.</strong></p>
+<p> 这是由于在执行install hexo-renderer-pandoc的时候电脑上并没有安装pandoc，只需要先卸载hexo-renderer-pandoc插件，在下载好pandoc后再进行安装就不会报错了。</p>
+</li>
 <li><p>完成上述过程后大部分公式渲染正确，但仍有部分公式报错</p>
-<p>出现这样的问题暂时我也不明白是什么原因引起的，其实在第一张图片中出现的就是这样一个问题。在我试着在下划线前加上“\_"反转义后，公式可以正常渲染了，但是相应的这部分也没有被识别为下标。但当我删除“\"并执行<code>hexo clean &amp;&amp; hexo g &amp;&amp; hexo s</code>后，这部分公式竟然被正常渲染了！所以重复多次渲染可能会有助于解决这个问题。</p></li>
+<p> 出现这样的问题暂时我也不明白是什么原因引起的，其实在第一张图片中出现的就是这样一个问题。在我试着在下划线前加上“\_“反转义后，公式可以正常渲染了，但是相应的这部分也没有被识别为下标。但当我删除“\“并执行<code>hexo clean &amp;&amp; hexo g &amp;&amp; hexo s</code>后，这部分公式竟然被正常渲染了！所以重复多次渲染可能会有助于解决这个问题。</p>
+</li>
 </ol>
 
         </div>
@@ -844,7 +843,7 @@ hexo-renderer-pandoc的时候电脑上并没有安装pandoc，只需要先卸载
                     </span>
                     
                         <span>
-                            共 4.5k 字
+                            共 5.3k 字
                         </span>
                     
                 </p>
